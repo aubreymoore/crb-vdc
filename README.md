@@ -27,3 +27,4 @@ gdal.Translate('vdc2.tif', 'vdc.vrt')
 
 ### TODO
 * Create a **jpg** folder and populate it with the tiles converted from geoTIFF to jpg.
+* See if the Jupyter notebooks will run on Colab.
