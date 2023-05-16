@@ -1,4 +1,4 @@
-# crb-yona-tiff
+# crb-vdc
 
 This repo contains an orthomosaic, in GeoTIFF format, from a drone survey of coconut palms at Villa Del Carmen, Yona, Guam. 
 Images were taken at 400 feet above ground with the camera pointed straight down.
@@ -13,28 +13,17 @@ You are free to use the data providing you acknowledge [University of Guam Drone
 [cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
 [cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
 
-### Some assembly required
+### Technical Notes
 
-The original GeoTIFF file is larger than GitHub's recommended maximum file size (50 MB), so it was split into 40 MB chunks. Run these command lines to download the repo and reassemble the orthomosaic GeoTIFF file:
+The original GeoTIFF file is larger than GitHub's recommended maximum file size (50 MB), so it was split into smaller geoTIFFS with a raster size of 1000 x 1000 pixels
+using Python code contained in a Jupyter Notebook, **split_geotiff.ipynb**.  These smaller geoTIFFs are stored in the **tiles** folder. 
+In addition, a **virtual raster file** (** *.vrt**) is built. This **vrt** file is simply an **xml** file which provides an index of the tiles.
+**vdc.vrt** can be opened by QGIS and it greatly speeds up loading and visualizing all the tiles displayed as a mosaic.
+
+The **vrt** file can also be used to merge all of the geoTIFF tiles back into a single file if needed:
 ```
-# download data
-git clone https://github.com/aubreymoore/crb-yona-tiff.git
-
-# change to newly created directory
-cd crb-yona-tiff
-
-# reassemble chunks
-cat chunks/* > Map1_Orthomosaic_export_FriMar31060700467300.tif
-
-# delete chunks
-rm -rf chunks
-
-# inspect the orthomosaic using QGIS (optional)
-qgis Map1_Orthomosaic_export_FriMar31060700467300.tif
+gdal.Translate('vdc2.tif', 'vdc.vrt')
 ```
 
-If you are using Windows, you should be able to reassemble chunks using this command line (untested):
-```
-type  chunks\* > Map1_Orthomosaic_export_FriMar31060700467300.tif  
-```
-# crb-vdc
+### TODO
+* Create a **jpg** folder and populate it with the tiles converted from geoTIFF to jpg.
