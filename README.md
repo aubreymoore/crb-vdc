@@ -17,10 +17,10 @@ You are free to use the data providing you acknowledge [University of Guam Drone
 
 The original GeoTIFF file is larger than GitHub's recommended maximum file size (50 MB), so it was split into smaller geoTIFFS with a raster size of 1000 x 1000 pixels
 using Python code contained in a Jupyter Notebook, **split_geotiff.ipynb**.  These smaller geoTIFFs are stored in the **tiles** folder. 
-In addition, a **virtual raster file** (** *.vrt**) is built. This **vrt** file is simply an **xml** file which provides an index of the tiles.
+In addition, a **virtual raster file (vdc.vrt)** is built. This is simply a text file in **xml** format which provides an index of the tiles.
 **vdc.vrt** can be opened by QGIS and it greatly speeds up loading and visualizing all the tiles displayed as a mosaic.
 
-The **vrt** file can also be used to merge all of the geoTIFF tiles back into a single file if needed:
+If needed, the **vrt** file can also be used to merge all of the geoTIFF tiles back into a single, large geoTIFF:
 ```
 gdal.Translate('vdc2.tif', 'vdc.vrt')
 ```
